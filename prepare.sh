@@ -46,16 +46,17 @@ echo "Language: $LANGUAGE"
 echo "Working directory: $WDIR"
 
 
-apt-get update
+#apt-get update
 
 # Installing Java
-add-apt-repository ppa:webupd8team/java
+#add-apt-repository ppa:webupd8team/java
 
 # Installing SBT
-echo "deb http://dl.bintray.com/sbt/debian /" | tee -a /etc/apt/sources.list.d/sbt.list
+#echo "deb http://dl.bintray.com/sbt/debian /" | tee -a /etc/apt/sources.list.d/sbt.list
 
-apt-get update
-apt-get install unzip oracle-java7-installer sbt
+#apt-get update
+#apt-get install unzip oracle-java7-installer sbt
+#apt-get install sbt
 
 
 mkdir -p $WDIR

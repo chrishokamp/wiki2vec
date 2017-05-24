@@ -94,7 +94,11 @@ class Word2VecCorpus(pathToReadableWiki:String, redirectStore:RedirectStore, pat
 
     val replace = { (anchorText:String, dbpdiaId:String) =>
       // Avoiding serializing this for spark..
-      " " + prefix + dbpdiaId + " " + anchorText + " "
+      //" " + prefix + dbpdiaId + " " + anchorText + " "
+
+      // chris: changed this so we can do more parsing later
+      // chris: make sure the stuff between these tags doesn't get tokenized, in fact, don't tokenize anything
+      " BEGIN-ANNOTATION " + prefix + dbpdiaId + ", " + anchorText + " END-ANNOTATION "
     }
      // replaces {{linkToWikipediaARticle}} =>  DBPEDIA_ID/wikiPediaTitle
     val redirectStore_local = redirectStoreBC.value
@@ -135,8 +139,11 @@ class Word2VecCorpus(pathToReadableWiki:String, redirectStore:RedirectStore, pat
   def getWord2vecCorpus(): Unit ={
     val replacedLinks = replaceLinksForIds(wikiTitleTexts, redirectStore)
     val cleanedArticles = cleanArticles(replacedLinks)
-    val tokenizedArticles = tokenize(cleanedArticles)
-    tokenizedArticles.saveAsTextFile(pathToOutput)
+    //val tokenizedArticles = tokenize(cleanedArticles)
+    //tokenizedArticles.saveAsTextFile(pathToOutput)
+
+    // Chris: we stopped tokenizing now -- this should be done later
+    cleanedArticles.saveAsTextFile(pathToOutput)
   }
 
 }
